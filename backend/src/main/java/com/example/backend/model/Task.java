@@ -18,6 +18,7 @@ public class Task {
     private UUID id;
     private String title;
     private String description;
+    @Enumerated(EnumType.STRING)
     private Status status;
     @CreatedDate
     private LocalDateTime createdAt;

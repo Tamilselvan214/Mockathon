@@ -57,7 +57,7 @@ public class TaskService {
         return taskRepository.findAll(pageable);
     }
 
-    public List<Task> getTasksByStatus(Status status) {
-        return taskRepository.findByStatus(status);
+    public List<Task> getTasksByStatus(Status status, Pageable pageable) {
+        return taskRepository.findByStatus(status, pageable);
     }
 }

@@ -27,22 +27,23 @@ public class TaskController {
 
     @GetMapping
     public Page<Task> getTasks(
+            @RequestParam(required = false) Status status,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size
     ) {
 
         Pageable pageable = PageRequest.of(page, size);
+
+        if (status != null) {
+            return (Page<Task>) taskService.getTasksByStatus(status, pageable);
+        }
+
         return taskService.getTasksWithPagination(pageable);
     }
 
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable UUID id) {
         return taskService.getTaskById(id);
-    }
-
-    @GetMapping
-    public List<Task> getTaskByStatus(@RequestParam(required = false) Status status) {
-        return taskService.getTasksByStatus(status);
     }
 
     @PutMapping("/update/{id}")

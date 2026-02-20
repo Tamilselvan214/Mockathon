@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import Board from "./components/Board";
+import "./index.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+
+  const [tasks, setTasks] = useState([
+    { id: 1, title: "Design UI", description: "Create board", status: "TODO" },
+    { id: 2, title: "API Integration", description: "Connect backend", status: "IN_PROGRESS" },
+    { id: 3, title: "Deploy", description: "Host app", status: "DONE" }
+  ]);
+
+  const handleUpdateStatus = (taskId, currentStatus) => {
+    let nextStatus = "TODO";
+    if (currentStatus === "TODO") nextStatus = "IN_PROGRESS";
+    else if (currentStatus === "IN_PROGRESS") nextStatus = "DONE";
+
+    setTasks(prev =>
+      prev.map(task =>
+        task.id === taskId ? { ...task, status: nextStatus } : task
+      )
+    );
+  };
+
+  const handleDelete = (taskId) => {
+    setTasks(prev =>
+      prev.filter(task => task.id !== taskId)
+    );
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="max-w-6xl mx-auto p-6 bg-slate-50 min-h-screen">
+      <h1 className="text-3xl font-bold text-center mb-6">
+        Task Board
+      </h1>
 
-export default App
+      <Board
+        tasks={tasks}
+        onUpdateStatus={handleUpdateStatus}
+        onDelete={handleDelete}
+      />
+    </div>
+  );
+}

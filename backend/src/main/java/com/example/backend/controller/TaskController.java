@@ -35,7 +35,7 @@ public class TaskController {
         Pageable pageable = PageRequest.of(page, size);
 
         if (status != null) {
-            return taskService.getTasksByStatus(status, pageable);
+            return (Page<Task>) taskService.getTasksByStatus(status, pageable);
         }
 
         return taskService.getTasksWithPagination(pageable);

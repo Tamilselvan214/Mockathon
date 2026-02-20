@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.model.Status;
 import com.example.backend.model.Task;
 import com.example.backend.repo.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,8 @@ public class TaskService {
     @Autowired
     private TaskRepo taskRepository;
 
-    // ➤ Create task
     public Task createTask(Task task) {
 
-        // generate UUID if not present
         if (task.getId() == null) {
             task.setId(UUID.randomUUID());
         }
@@ -27,17 +26,14 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    // ➤ Get all tasks
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
 
-    // ➤ Get task by id
     public Task getTaskById(UUID id) {
         return taskRepository.findById(id).orElse(null);
     }
 
-    // ➤ Update task
     public Task updateTask(UUID id, Task newTask) {
 
         Task existing = taskRepository.findById(id).orElse(null);
@@ -53,7 +49,6 @@ public class TaskService {
         return null;
     }
 
-    // ➤ Delete task
     public void deleteTask(UUID id) {
         taskRepository.deleteById(id);
     }
@@ -62,4 +57,7 @@ public class TaskService {
         return taskRepository.findAll(pageable);
     }
 
+    public List<Task> getTasksByStatus(Status status) {
+        return taskRepository.findByStatus(status);
+    }
 }

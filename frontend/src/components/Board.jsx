@@ -1,7 +1,7 @@
 import TaskCard from "./TaskCard";
 
 export default function Board({ tasks, onUpdateStatus, onDelete }) {
-  // Filter tasks by status
+
   const todoTasks = tasks.filter(task => task.status === "TODO");
   const inProgressTasks = tasks.filter(task => task.status === "IN_PROGRESS");
   const doneTasks = tasks.filter(task => task.status === "DONE");
@@ -9,7 +9,6 @@ export default function Board({ tasks, onUpdateStatus, onDelete }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
 
-      {/* TO DO */}
       <TaskColumn
         title="To Do"
         tasks={todoTasks}
@@ -17,7 +16,6 @@ export default function Board({ tasks, onUpdateStatus, onDelete }) {
         onDelete={onDelete}
       />
 
-      {/* IN PROGRESS */}
       <TaskColumn
         title="In Progress"
         tasks={inProgressTasks}
@@ -25,7 +23,6 @@ export default function Board({ tasks, onUpdateStatus, onDelete }) {
         onDelete={onDelete}
       />
 
-      {/* DONE */}
       <TaskColumn
         title="Done"
         tasks={doneTasks}
@@ -39,7 +36,7 @@ export default function Board({ tasks, onUpdateStatus, onDelete }) {
 
 function TaskColumn({ title, tasks, onUpdateStatus, onDelete }) {
   return (
-    <div className="bg-white shadow-md rounded-xl p-4 min-h-[400px]">
+    <div className="bg-white rounded-xl shadow-md p-4 min-h-[400px]">
       <h2 className="text-xl font-semibold mb-4">{title}</h2>
 
       {tasks.length === 0 ? (

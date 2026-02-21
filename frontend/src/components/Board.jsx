@@ -36,7 +36,7 @@ export default function Board({ tasks, onUpdateStatus, onDelete }) {
 
 function TaskColumn({ title, tasks, onUpdateStatus, onDelete }) {
   return (
-    <div className="bg-white rounded-xl shadow-md p-4 min-h-[400px]">
+    <div className="bg-white rounded-xl shadow-md p-4 min-h-100">
       <h2 className="text-xl font-semibold mb-4">{title}</h2>
 
       {tasks.length === 0 ? (
